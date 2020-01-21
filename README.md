@@ -8,6 +8,18 @@ have more than one repository. Let's see.
 
 
 
+## Hmm
+We need a production server. I don't like to focus on that one atm, so
+for you contributors, plz research for:
+  * uWSGI
+  * nginx
+  * integrate flask with uWSCGI and nginx
+  * I think:
+    * Every container will have nginx within python container.
+    * We can have ENVIRONMENT as trigger.
+    * SERVER_BUILD=DEV/PROD
+      * If PROD, then instance will run on nginx
+      * If DEV, then instance will run on flask's server
 
 
 ## Initial goal
@@ -19,6 +31,3 @@ have more than one repository. Let's see.
   - Serves dynamic content, in a form of json
 * Master Server 
 * Agent / Slave Client
-
-
-nac2106
