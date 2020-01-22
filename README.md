@@ -1,5 +1,7 @@
 # Jonkkins
-A copycat of Jenkins. Entirely written in python
+A copycat of Jenkins. Entirely written in python. Project seems a parody
+project, imitating Jenkins. But this is a serious project. We might change
+the name some time. But not for now.
 
 ### Stability
 Project is at its embryo stage. Not even early. Project is not
