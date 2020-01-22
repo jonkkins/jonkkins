@@ -7,3 +7,10 @@ services:
       - 999:80
     volumes:
       - ./modules/login/src:/app
+  front:
+    build: front
+    ports:
+      - 998:80
+    volumes:
+      - ./front/error:/home/error
+      - ./front/pages:/home/pages
