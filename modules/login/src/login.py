@@ -18,3 +18,27 @@ def hello_world():
     if valid_username and valid_password:
         return 'valid username and password heh'
     return 'Invalid username and/or password'
+
+"""
+Things to do:
+ -- Once username and password matches the database (for now we put it on a variable),
+    then what we're going to do next is to generate a JWT that:
+      - Claims that 'you' are the logged-in user
+      - Kindly see JWT's standard claim. I think the standard claims are
+        just enough. No need to think of a customized claim
+      - Sign the jwt token, and create:
+        {'jwt': '<jwt here'}
+
+-- On the front side:
+    - Once we receive the valid login jwt, we must store it somewhere.
+    - And then, on every request we made, put the jwt on Authorization: Bearer <jwt>
+
+-- Lastly,
+    - Perform a check on header. It'll be in the middleware of every application that
+      requires logged-in user.
+    - Once the claim are determined to be correct, we can just use the data written here.
+      No need to get the data from database, since it is signed, then it is less likely
+      to be manipulated
+    - We can consider adding another layer (encryption), thus, making it JWE (Json Web
+      Token Encrypted)
+"""
