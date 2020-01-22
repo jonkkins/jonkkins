@@ -1,0 +1,7 @@
+version: '3.6'
+
+services:
+  jonkkins-login:
+    build: modules/login
+    ports:
+      - 999:80
