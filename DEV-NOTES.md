@@ -14,7 +14,7 @@ then do your own experiments that we have discussed recently.
 
 ### Important checklist of contributors atm:
  - [ ] NGINX -> ASGI -> Flask Stack, research and implementation
- - [ ] Auto source code update when you make some changes in the code
+ - [x] Auto source code update when you make some changes in the code
        without rebuilding (research and implementation)
  - [ ] Core development
 
