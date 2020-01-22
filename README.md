@@ -2,7 +2,8 @@
 A copycat of Jenkins. Entirely written in python
 
 ### Stability
-Project is at its early stage. Project is not ready for use yet.
+Project is at its embryo stage. Not even early. Project is not
+ready for use yet. We'll do our best to be up as soon as we can.
 
 ### Basic usage
 #### Production Setup
