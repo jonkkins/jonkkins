@@ -5,3 +5,5 @@ services:
     build: modules/login
     ports:
       - 999:80
+    volumes:
+      - ./modules/login/src:/app
