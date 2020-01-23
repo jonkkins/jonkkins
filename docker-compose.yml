@@ -3,6 +3,7 @@ version: '3.6'
 services:
   jonkkins-login:
     build: modules/login
+    restart: unless-stopped
     ports:
       - 999:80
     volumes:
