@@ -21,6 +21,7 @@ def hello_world():
 
 """
 Things to do:
+  Reference: https://jwcrypto.readthedocs.io/en/latest/jwt.html
  -- Once username and password matches the database (for now we put it on a variable),
     then what we're going to do next is to generate a JWT that:
       - Claims that 'you' are the logged-in user
