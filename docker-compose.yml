@@ -15,3 +15,11 @@ services:
     volumes:
       - ./front/error:/home/error
       - ./front/pages:/home/pages
+  db:
+    image: 'postgres:9.6.16-alpine'
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
+    volumes:
+      # Please create postgres-passwd file in postgresql/secrets, and put the password here
+      - ./postgresql/secrets:/run/secrets
+      - ./postgresql/docker-entrypoint-initdb:/docker-entrypoint-initdb.d
