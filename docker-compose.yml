@@ -21,5 +21,5 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
     volumes:
       # Please create postgres-passwd file in postgresql/secrets, and put the password here
-      - ./postgresql/secrets:/run/secrets
-      - ./postgresql/docker-entrypoint-initdb:/docker-entrypoint-initdb.d
+      - ./docker/postgresql/secrets:/run/secrets
+      - ./docker/postgresql/docker-entrypoint-initdb:/docker-entrypoint-initdb.d
