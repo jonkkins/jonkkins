@@ -15,6 +15,15 @@ services:
     volumes:
       - ./front/error:/home/error
       - ./front/pages:/home/pages
+  db-api:
+    build: modules/db-api
+    ports:
+      - 1000:80
+    volumes:
+      - ./docker/php/apache/sites-available:/etc/apache2/sites-available
+      - ./modules/db-api/src:/var/www/html
+#    command:
+#      - /init.sh
   db:
     image: 'postgres:9.6.16-alpine'
     environment:
