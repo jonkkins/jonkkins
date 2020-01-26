@@ -1,5 +1,6 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request, Response
+from jwcrypto import jwt, jwk, jws
+import time
 import bcrypt
 
 app = Flask(__name__)
@@ -10,14 +11,51 @@ username = 'ghabxph'
 # Password: stonkestpw
 password = b'$2b$12$Uc7LQULxOIJEkoGmSGzmPeMY1wNYgw9Upk2EZ3OTyeNA2VUIO6kuG'
 
+# JWK
+key = jwk.JWK.from_json('{"k":"ttaVli605F0FOfdpUUpm9sKGeBRb0ooN6Dwta6ydqdo","kty":"oct"}')
+key2 = jwk.JWK(generate='oct', size=256)
+
+
+@app.route('/')
+def test():
+    return bcrypt.hashpw(b'dedededede', bcrypt.gensalt())
+    # token = jwt.JWT(header={'alg': 'HS256'}, claims={
+    #     'usr': username,
+    #     'iat': int(time.time()),
+    #     'exp': int(time.time() + 86400)
+    # })
+    # token.make_signed_token(key)
+    #
+    # # token verification
+    # try:
+    #     jwt.JWT(jwt=token.serialize(), key=key)
+    #     return Response('{"msg":"Token is valid"}', mimetype='application/json'), 200
+    # except jws.InvalidJWSSignature:
+    #     return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
+
 
 @app.route('/login', methods=['POST'])
-def hello_world():
+def login():
     valid_username = request.form['username'].lower() == username.lower()
     valid_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), password) == password
     if valid_username and valid_password:
-        return 'valid username and password heh'
-    return 'Invalid username and/or password'
+        token = jwt.JWT(header={'alg': 'HS256'}, claims={
+            'usr': username,
+            'iat': int(time.time()),
+            'exp': int(time.time() + 86400)
+        })
+        token.make_signed_token(key)
+        return token.serialize(), 200
+    return 'Invalid username and/or password', 403
+
+
+@app.route('/verify')
+def verify_token():
+    try:
+        jwt.JWT(jwt=request.form(['token'], key=key))
+        return Response('{"msg":"Token is valid"}', mimetype='application/json'), 200
+    except jws.InvalidJWSSignature:
+        return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
 
 """
 Things to do:
@@ -42,4 +80,10 @@ Things to do:
       to be manipulated
     - We can consider adding another layer (encryption), thus, making it JWE (Json Web
       Token Encrypted)
+
+-- Questions:
+    - Where to store the generated key?
+      - user:
+      - pass:
+      - loginKey
 """
