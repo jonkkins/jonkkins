@@ -20,7 +20,7 @@ services:
     ports:
       - 1000:80
     volumes:
-      - ./docker/php/apache/sites-available:/etc/apache2/sites-available
+      - ./modules/db-api/php/apache/sites-available:/etc/apache2/sites-available
       - ./modules/db-api/src:/var/www/html
 #    command:
 #      - /init.sh
