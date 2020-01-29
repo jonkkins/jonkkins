@@ -10,3 +10,6 @@ RUN apk --no-cache add \
 # Install python requirements
 COPY requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
+
+# 2020-01-29
+RUN pip install pymongo
