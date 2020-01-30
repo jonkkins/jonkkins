@@ -58,18 +58,23 @@ each other.
   - [ ] Register user
   - [ ] Register slave
 - [ ] Simple RESTFUL login, returns JWS Token, plain string
-  - [ ] POST /login
-    - [ ] Returns JSON containing msg and jws (if valid, otherwise, just msg)
-    - [ ] Token must expire every 15 minutes.
-    - [ ] Client receiving the header must save it on local-storage
-    - [ ] Client must send the token every authenticated request.
+  - [X] POST /login
+    - [x] Returns JSON containing msg and jws (if valid, otherwise, just msg)
+    - [x] Token must expire every 15 minutes.
   - [ ] POST /login-slave
     - [ ] Implement similar to /login, difference is this is for
           slave clients.
+- [ ] Simple SLAVE client
+  - [ ] Slave should be able to connect to master
+  - [ ] Slave should be able to receive files from master
+  - [ ] Slave should be able to execute commands, issued by master
 * Front Server (nginx, hosts html files for UI)
   - [ ] Serves static html, javascript and images (just initial stuff)
   - [ ] Develop login page
+    - [ ] Perform request to login server /login
+    - [ ] Client must store jws upon successful login to local-storage
   - [ ] Develop home page
+    - [ ] Client must send auth token from local storage (Authorization: Bearer JWS-STRING)
     - [ ] Side bar consist of
       - [ ] Upper side panel (left)
         - [ ] New item
@@ -98,10 +103,6 @@ each other.
             treat the script as bash. Without header, we'll treat the
             script as a regular bash file, just like how jenkins do it.
     - [ ] Trigger another local job, parametized
-- [ ] Simple SLAVE client
-  - [ ] Slave should be able to connect to master
-  - [ ] Slave should be able to receive files from master
-  - [ ] Slave should be able to execute commands, issued by master
 
 
 ### Slack channel
