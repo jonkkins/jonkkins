@@ -17,6 +17,28 @@ def set_password(password_file, new_password):
         password_file.write(new_password)
 # End of functions -----------------------------------
 
+print('\033c')
+print('\x1bc')
+print('                             G h a b X P H \' s')
+print('--------------------------------------------------------------------------')
+print('      ##  #######  ##    ## ##    ## ##    ## #### ##    ##  ######')
+print('      ## ##     ## ###   ## ##   ##  ##   ##   ##  ###   ## ##    ##')
+print('      ## ##     ## ####  ## ##  ##   ##  ##    ##  ####  ## ##')
+print('      ## ##     ## ## ## ## #####    #####     ##  ## ## ##  ######')
+print('##    ## ##     ## ##  #### ##  ##   ##  ##    ##  ##  ####       ##')
+print('##    ## ##     ## ##   ### ##   ##  ##   ##   ##  ##   ### ##    ##')
+print(' ######   #######  ##    ## ##    ## ##    ## #### ##    ##  ######')
+print('--------------------------------------------------------------------------')
+print('This is a slave program that connects to a master jonkkins server.')
+print('Github: https://github.com/ghabxph/jonkkins')
+print('Chosen contributors: Me, me, me, and me.')
+print('')
+print('Press CTRL+C to terminate this program.')
+print('')
+print('')
+print('Logs')
+print('-----------------------------')
+
 try:
     # Check if required parameters are set
     if len(sys.argv) < 5:
@@ -44,20 +66,22 @@ try:
 
         data = {"name": name, "password": get_password(password_file)}
 
-        print('Logging in to master: ' + login_url)
+        print('State\t: Logging in to master: ' + login_url)
 
         # Performs basic login
         res = requests.post(login_url, data=data)
 
         # Checks if our login request was accepted
         if res.status_code == 200:
-            print('Agent has been connected.')
+            print('State\t: Agent has been connected.')
 
             # Resets login attempt
             login_attempt = 0
 
             # Updates password (random password)
+            print('Action\t: I am now updating my password I got from the master...')
             set_password(password_file, json.loads(res.text)['new_password'])
+            print('State\t: My password has been updated!')
 
             # Program loop that receives command from the master
             while True:
@@ -66,7 +90,7 @@ try:
                 # Sleeps for 1 second.
                 time.sleep(1)
 
-        print('Error: ' + json.loads(res.text)['msg'])
+        print('Error\t: ' + json.loads(res.text)['msg'])
 
         # Increment login attempt
         login_attempt = login_attempt + 1
@@ -75,5 +99,18 @@ try:
         time.sleep(5)
 
 except KeyboardInterrupt:
+    print('-----------------------------')
+    print('\033c')
+    print('\x1bc')
+    print('          ... Now killing the application ...')
+    print('########  ##    ## ########                    ##    ### ')
+    print('##     ##  ##  ##  ##                         ####  ##   ')
+    print('##     ##   ####   ##                          ##  ##    ')
+    print('########     ##    ######                          ##    ')
+    print('##     ##    ##    ##                          ##  ##    ')
+    print('##     ##    ##    ##          ### ### ###    ####  ##   ')
+    print('########     ##    ########    ### ### ###     ##    ### ')
     print('')
-    print('Now closing the agent...')
+    print('               Now closing the agent...')
+    print('')
+    print('')
