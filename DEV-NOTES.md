@@ -56,18 +56,21 @@ each other.
 ### Core development initial goal
 - [ ] Simple RESTFUL registration
   - [ ] Register user
-  - [ ] Register slave
+  - [ ] Register agent
 - [x] Simple RESTFUL login, returns JWS Token, plain string
   - [X] POST /login
     - [x] Returns JSON containing msg and jws (if valid, otherwise, just msg)
     - [x] Token must expire every 15 minutes.
-  - [x] POST /login-slave
+  - [x] POST /login-agent
     - [x] Implement similar to /login, difference is this is for
-          slave clients.
-- [ ] Simple SLAVE client
-  - [ ] Slave should be able to connect to master
-  - [ ] Slave should be able to receive files from master
-  - [ ] Slave should be able to execute commands, issued by master
+          agent clients.
+  - [ ] GET /assets/agent.py
+    - [ ] The route must allow us to download the latest agent script relative to
+          project's version
+- [ ] Simple AGENT client
+  - [ ] Agent should be able to connect to master
+  - [ ] Agent should be able to receive files from master
+  - [ ] Agent should be able to execute commands, issued by master
 - [ ] Front Server (nginx, hosts html files for UI)
   - [ ] Serves static html, javascript and images (just initial stuff)
   - [ ] Develop login page
@@ -83,7 +86,7 @@ each other.
         - [ ] New View
       - [ ] Lower side panel (left)
         - [ ] Build Executor Status
-          - [ ] List of connected agents / slaves
+          - [ ] List of connected agents / agents
           - [ ] Number of executors (per agent)
 - [ ] Simple MASTER server.
   - [ ] Must implement a middleware that always check for login
@@ -91,7 +94,7 @@ each other.
         by the client.
   - [ ] All requests are authenticated. There are two users of master
     - [ ] Human client -- Validate
-    - [ ] Slave client -- Validate
+    - [ ] Agent client -- Validate
   - [ ] New job registration
     - [ ] Freestyle
   - [ ] Job action update
