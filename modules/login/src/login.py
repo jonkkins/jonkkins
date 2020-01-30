@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from jwcrypto import jwt, jwk, jws
 from lib.mongo import db
 from lib.config import config
@@ -6,7 +6,6 @@ import json
 import bcrypt
 import time
 import random
-import string
 
 # Essential Instances
 app = Flask(__name__)
@@ -15,9 +14,9 @@ app = Flask(__name__)
 @app.route('/login', methods=['POST'])
 def login():
     auto_create_default_user()
-    user = db()['users'].find_one({"username": request.form['username'].lower()})
-    valid_username = request.form['username'].lower() == user['username'].lower()
-    valid_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), user['password']) == user['password']
+    user = db()['users'].find_one({"username": request.values.get('username').lower()})
+    valid_username = request.values.get('username').lower() == user['username'].lower()
+    valid_password = bcrypt.hashpw(request.values.get('password').encode('utf-8'), user['password']) == user['password']
 
     if valid_username and valid_password:
         token = jwt.JWT(header={'alg': 'HS256'}, claims={
@@ -33,10 +32,11 @@ def login():
 @app.route('/login-agent', methods=['POST'])
 def login_agent():
     auto_create_default_agent()
-    query = {"name": request.form['name'].lower()}
+    query = {"name": request.values.get('name').lower()}
     agent = db()['agents'].find_one(query)
-    if agent and bcrypt.hashpw(request.form['password'].encode('utf-8'), agent['password']) == agent['password']:
-        new_password = ''.join(random.choice(string.letters + string.digits) for i in range(32))
+
+    if agent and bcrypt.hashpw(request.values.get('password').encode('utf-8'), agent['password']) == agent['password']:
+        new_password = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for i in range(32)).encode('utf-8')
         db()['agents'].update_one(query, {"$set": {"password": bcrypt.hashpw(new_password, bcrypt.gensalt())}})
         token = jwt.JWT(header={'alg': 'HS256'}, claims={
             'usr': agent['name'],
@@ -44,7 +44,7 @@ def login_agent():
             'exp': int(time.time() + 900)
         })
         token.make_signed_token(jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
-        return Response(json.dumps({"msg": " Agent connected successfully.", "jws": token.serialize(), "new_password": new_password}), mimetype='application/json'), 200
+        return Response(json.dumps({"msg": "Agent connected successfully.", "jws": token.serialize(), "new_password": new_password.decode('utf-8')}), mimetype='application/json'), 200
     return Response(json.dumps({"msg": "Invalid agent credentials"}), mimetype='application/json'), 403
 
 
@@ -57,7 +57,7 @@ def download_agent():
 @app.route('/verify')
 def verify_token():
     try:
-        jwt.JWT(jwt=request.form(['token'], key=jwk.JWK.from_json(json.dumps(config()['auth']['jwk']))))
+        jwt.JWT(jwt=request.values.get('token'), key=jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
         return Response('{"msg":"Token is valid"}', mimetype='application/json'), 200
     except jws.InvalidJWSSignature:
         return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
