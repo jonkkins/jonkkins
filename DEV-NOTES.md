@@ -1,6 +1,27 @@
 # Jonkkins
 A copycat of Jenkins. Will be written in python.
 
+# NOTE
+```
+"""
+Things to do:
+  Reference: https://jwcrypto.readthedocs.io/en/latest/jwt.html
+
+-- On the front side:
+    - Once we receive the valid login jwt, we must store it somewhere.
+    - And then, on every request we made, put the jwt on Authorization: Bearer <jwt>
+
+-- Lastly,
+    - Perform a check on header. It'll be in the middleware of every application that
+      requires logged-in user.
+    - Once the claim are determined to be correct, we can just use the data written here.
+      No need to get the data from database, since it is signed, then it is less likely
+      to be manipulated
+    - We can consider adding another layer (encryption), thus, making it JWE (Json Web
+      Token Encrypted)
+"""
+```
+
 ## Initial Structure
 Project will consist of modules `modules/{module}`. As of the
 moment, the project will have one repository for now. Maybe we'll
