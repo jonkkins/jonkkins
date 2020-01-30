@@ -57,7 +57,7 @@ each other.
 - [ ] Simple RESTFUL registration
   - [ ] Register user
   - [ ] Register slave
-- [x] Simple RESTFUL login, returns JWS Token, plain string
+- [ ] Simple RESTFUL login, returns JWS Token, plain string
   - [ ] POST /login
     - [ ] Returns `Authorization: Bearer <JWS>` header
     - [ ] Token must expire every 15 minutes.
