@@ -48,6 +48,12 @@ def login_agent():
     return Response(json.dumps({"msg": "Invalid agent credentials"}), mimetype='application/json'), 403
 
 
+@app.route('/assets/agent.py', methods=['GET'])
+def download_agent():
+    with open('asset/agent.py', 'r') as agent_file:
+        return Response(agent_file.read(), mimetype='application/octet-stream'), 200
+
+
 @app.route('/verify')
 def verify_token():
     try:
