@@ -50,14 +50,14 @@ Boxes are to be checked, once items are initially proven integrated to
 each other.
 - [ ] NGINX
 - [ ] Unicorn (ASGI)
-- [ ] Flask (Framework)
-- [ ] PostgreSQL as Database
+- [x] Flask (Framework)
+- [x] MongoDB as Database
 
 ### Core development initial goal
 - [ ] Simple RESTFUL registration
   - [ ] Register user
   - [ ] Register slave
-- [ ] Simple RESTFUL login, returns JWS Token, plain string
+- [x] Simple RESTFUL login, returns JWS Token, plain string
   - [ ] POST /login
     - [ ] Returns `Authorization: Bearer <JWS>` header
     - [ ] Token must expire every 15 minutes.
