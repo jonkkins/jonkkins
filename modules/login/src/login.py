@@ -30,8 +30,8 @@ def login():
     return Response(json.dumps({"msg": "Invalid username and/or password"}), mimetype='application/json'), 403
 
 
-@app.route('/login-slave', methods=['POST'])
-def login_slave():
+@app.route('/login-agent', methods=['POST'])
+def login_agent():
     auto_create_default_agent()
     query = {"name": request.form['name'].lower()}
     agent = db()['agents'].find_one(query)
