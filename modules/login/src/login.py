@@ -31,7 +31,7 @@ def login():
 @app.route('/verify')
 def verify_token():
     try:
-        jwt.JWT(jwt=request.form(['token'], key=key))
+        jwt.JWT(jwt=request.form(['token'], key=jwk.JWK.from_json(json.dumps(config()['auth']['jwk']))))
         return Response('{"msg":"Token is valid"}', mimetype='application/json'), 200
     except jws.InvalidJWSSignature:
         return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
