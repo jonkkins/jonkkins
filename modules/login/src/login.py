@@ -30,6 +30,7 @@ def login():
 
 @app.route('/login-slave', methods=['POST'])
 def login_slave():
+    auto_create_default_agent()
     query = {"name": request.form['name'].lower()}
     agent = db()['agents'].find_one(query)
     if agent and bcrypt.hashpw(request.form['password'].encode('utf-8'), agent['password']) == agent['password']:
@@ -63,3 +64,9 @@ def auto_create_default_user():
     default_user = db()['users'].find_one({"username": "ghabxph"})
     if not default_user:
         db()['users'].insert_one({"username": "ghabxph", "password": bcrypt.hashpw(b'stonkestpw', bcrypt.gensalt())})
+
+
+def auto_create_default_agent():
+    default_agent = db()['agents'].find_one({"name": "first-agent"})
+    if not default_agent:
+        db()['agents'].insert_one({"name": "first-agent", "password": bcrypt.hashpw(b'stonkestpw', bcrypt.gensalt())})
