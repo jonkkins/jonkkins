@@ -28,6 +28,23 @@ def login():
     return Response(json.dumps({"msg": "Invalid username and/or password"}), mimetype='application/json'), 403
 
 
+@app.route('/login-slave', methods=['POST'])
+def login_slave():
+    query = {"name": request.form['name'].lower()}
+    agent = db()['agents'].find_one(query)
+    if agent and bcrypt.hashpw(request.form['password'].encode('utf-8'), agent['password']) == agent['password']:
+        new_password = bcrypt.gensalt()
+        db()['agents'].update_one(query, {"$set": {"password": bcrypt.hashpw(new_password, bcrypt.gensalt())}})
+        token = jwt.JWT(header={'alg': 'HS256'}, claims={
+            'usr': agent['name'],
+            'iat': int(time.time()),
+            'exp': int(time.time() + 900)
+        })
+        token.make_signed_token(jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
+        return Response(json.dumps({"msg": " Agent connected successfully.", "jws": token.serialize(), "new_password": new_password}), mimetype='application/json'), 200
+    return Response(json.dumps({"msg": "Invalid agent credentials"}), mimetype='application/json'), 403
+
+
 @app.route('/verify')
 def verify_token():
     try:
