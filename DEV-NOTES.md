@@ -64,7 +64,7 @@ each other.
   - [x] POST /login-agent - Implement similar to /login, difference is this is for agent clients.
   - [x] GET /assets/agent.py -- Download agent.py agent script
 - [ ] Simple AGENT client
-  - [ ] Agent should be able to connect to master
+  - [x] Agent should be able to connect to master
   - [ ] Agent should be able to receive files from master
   - [ ] Agent should be able to execute commands, issued by master
 - [ ] Front Server (nginx, hosts html files for UI)
