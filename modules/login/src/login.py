@@ -1,7 +1,7 @@
 from flask import Flask, request, Response
 from jwcrypto import jwt, jwk, jws
-from mongo import db
-from config import config
+from lib.mongo import db
+from lib.config import config
 import json
 import bcrypt
 import time
