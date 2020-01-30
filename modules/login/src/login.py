@@ -1,7 +1,8 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from jwcrypto import jwt, jwk, jws
-import time
+from mongo import mongo
 import bcrypt
+import time
 
 app = Flask(__name__)
 
@@ -15,9 +16,12 @@ password = b'$2b$12$Uc7LQULxOIJEkoGmSGzmPeMY1wNYgw9Upk2EZ3OTyeNA2VUIO6kuG'
 key = jwk.JWK.from_json('{"k":"ttaVli605F0FOfdpUUpm9sKGeBRb0ooN6Dwta6ydqdo","kty":"oct"}')
 key2 = jwk.JWK(generate='oct', size=256)
 
-
 @app.route('/')
 def test():
+    myclient = mongo()
+    mydb = myclient["mydatabase"]
+    return jsonify(myclient.list_database_names())
+
     return bcrypt.hashpw(b'dedededede', bcrypt.gensalt())
     # token = jwt.JWT(header={'alg': 'HS256'}, claims={
     #     'usr': username,
