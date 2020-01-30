@@ -57,12 +57,12 @@ each other.
 - [ ] Simple RESTFUL registration
   - [ ] Register user
   - [ ] Register slave
-- [ ] Simple RESTFUL login, returns JWS Token, plain string
+- [x] Simple RESTFUL login, returns JWS Token, plain string
   - [X] POST /login
     - [x] Returns JSON containing msg and jws (if valid, otherwise, just msg)
     - [x] Token must expire every 15 minutes.
-  - [ ] POST /login-slave
-    - [ ] Implement similar to /login, difference is this is for
+  - [x] POST /login-slave
+    - [x] Implement similar to /login, difference is this is for
           slave clients.
 - [ ] Simple SLAVE client
   - [ ] Slave should be able to connect to master
