@@ -54,6 +54,11 @@ def verify_token():
         return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
 
 
+@app.errorhandler(404)
+def error_404(e):
+    return Response('{"msg": "Error 404. Resource not found."}', mimetype='application/json'), 404
+
+
 def auto_create_default_user():
     default_user = db()['users'].find_one({"username": "ghabxph"})
     if not default_user:
