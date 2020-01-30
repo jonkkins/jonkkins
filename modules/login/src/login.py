@@ -54,10 +54,10 @@ def download_agent():
         return Response(agent_file.read(), mimetype='application/octet-stream'), 200
 
 
-@app.route('/verify')
+@app.route('/verify', methods=['GET'])
 def verify_token():
     try:
-        jwt.JWT(jwt=request.values.get('token'), key=jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
+        jwt.JWT(jwt=request.headers.get('Authorization')[7:], key=jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
         return Response('{"msg":"Token is valid"}', mimetype='application/json'), 200
     except jws.InvalidJWSSignature:
         return Response('{"msg":"Token is invalid"}', mimetype='application/json'), 403
