@@ -1,4 +1,4 @@
-#!/usr/env python3
+#!/usr/bin/env python3
 
 import json
 import requests
@@ -20,7 +20,7 @@ def set_password(password_file, new_password):
 # End of functions -----------------------------------
 
 # Check if required parameters are set
-if sys.argv.len() < 5:
+if len(sys.argv) < 5:
     print('Usage:')
     print('%s schema host name password-path')
     print('schema         - Either http or https')
@@ -31,18 +31,18 @@ if sys.argv.len() < 5:
 
 # Initial variables set from command line
 schema = sys.argv[1]
-host = sys.argv[2]
+url = sys.argv[2]
 name = sys.argv[3]
 password_file = sys.argv[4]
 
 # URLs
-base_url = '%s://%s' % (schema, host)
+base_url = '%s://%s' % (schema, url)
 
 # Attempts to login for 5 times, then exits itself if login has failed for 5 consecutive times.
 login_attempt = 0
 while login_attempt < 5:
     # Performs basic login
-    res = requests.post(base_url + '/api/auth/login-slave',
+    res = requests.post(base_url + '/login-slave',
                         data={"name": name, "password": get_password(password_file)})
 
     # Checks if our login request was accepted
@@ -60,6 +60,8 @@ while login_attempt < 5:
 
             # Sleeps for 1 second.
             time.sleep(1)
+
+    print('Error: ' + json.loads(res.text)['msg'])
 
     # Increment login attempt
     login_attempt = login_attempt + 1
