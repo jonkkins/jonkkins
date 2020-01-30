@@ -59,6 +59,7 @@ try:
     # URLs
     base_url = '%s://%s' % (schema, url)
     login_url = base_url + '/login-agent'
+    test_verify_url = base_url + '/verify'
 
     # Attempts to login for 5 times, then exits itself if login has failed for 5 consecutive times.
     login_attempt = 0
@@ -70,6 +71,7 @@ try:
 
         # Performs basic login
         res = requests.post(login_url, data=data)
+        response_json = json.loads(res.text)
 
         # Checks if our login request was accepted
         if res.status_code == 200:
@@ -80,17 +82,20 @@ try:
 
             # Updates password (random password)
             print('Action\t: I am now updating my password I got from the master...')
-            set_password(password_file, json.loads(res.text)['new_password'])
+            set_password(password_file, response_json['new_password'])
             print('State\t: My password has been updated!')
+
+            # Verify token from server (test)
+            res = requests.get(test_verify_url, headers={"Authorization": "Bearer %s" % (response_json['jws'])})
+            print('Debug\t:' + res.text)
 
             # Program loop that receives command from the master
             while True:
-                # No code yet ...
 
                 # Sleeps for 1 second.
                 time.sleep(1)
 
-        print('Error\t: ' + json.loads(res.text)['msg'])
+        print('Error\t: ' + response_json['msg'])
 
         # Increment login attempt
         login_attempt = login_attempt + 1
