@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from config import config
+from lib.config import config
 import urllib.parse
 
 
