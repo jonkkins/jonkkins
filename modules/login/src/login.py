@@ -21,11 +21,11 @@ def login():
         token = jwt.JWT(header={'alg': 'HS256'}, claims={
             'usr': user['username'],
             'iat': int(time.time()),
-            'exp': int(time.time() + 86400)
+            'exp': int(time.time() + 900)
         })
         token.make_signed_token(jwk.JWK.from_json(json.dumps(config()['auth']['jwk'])))
-        return token.serialize(), 200
-    return 'Invalid username and/or password', 403
+        return Response(json.dumps({"msg": "Login success.", "jws": token.serialize()}), mimetype='application/json'), 200
+    return Response(json.dumps({"msg": "Invalid username and/or password"}), mimetype='application/json'), 403
 
 
 @app.route('/verify')
