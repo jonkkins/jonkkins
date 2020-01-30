@@ -59,7 +59,7 @@ each other.
   - [ ] Register slave
 - [ ] Simple RESTFUL login, returns JWS Token, plain string
   - [ ] POST /login
-    - [ ] Returns `Authorization: Bearer <JWS>` header
+    - [ ] Returns JSON containing msg and jws (if valid, otherwise, just msg)
     - [ ] Token must expire every 15 minutes.
     - [ ] Client receiving the header must save it on local-storage
     - [ ] Client must send the token every authenticated request.
