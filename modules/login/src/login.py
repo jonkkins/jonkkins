@@ -5,6 +5,8 @@ from lib.config import config
 import json
 import bcrypt
 import time
+import random
+import string
 
 # Essential Instances
 app = Flask(__name__)
@@ -34,7 +36,7 @@ def login_slave():
     query = {"name": request.form['name'].lower()}
     agent = db()['agents'].find_one(query)
     if agent and bcrypt.hashpw(request.form['password'].encode('utf-8'), agent['password']) == agent['password']:
-        new_password = bcrypt.gensalt()
+        new_password = ''.join(random.choice(string.letters + string.digits) for i in range(32))
         db()['agents'].update_one(query, {"$set": {"password": bcrypt.hashpw(new_password, bcrypt.gensalt())}})
         token = jwt.JWT(header={'alg': 'HS256'}, claims={
             'usr': agent['name'],
