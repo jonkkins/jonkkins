@@ -68,7 +68,7 @@ each other.
   - [ ] Slave should be able to connect to master
   - [ ] Slave should be able to receive files from master
   - [ ] Slave should be able to execute commands, issued by master
-* Front Server (nginx, hosts html files for UI)
+- [ ] Front Server (nginx, hosts html files for UI)
   - [ ] Serves static html, javascript and images (just initial stuff)
   - [ ] Develop login page
     - [ ] Perform request to login server /login
