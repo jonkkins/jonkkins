@@ -61,12 +61,8 @@ each other.
   - [X] POST /login
     - [x] Returns JSON containing msg and jws (if valid, otherwise, just msg)
     - [x] Token must expire every 15 minutes.
-  - [x] POST /login-agent
-    - [x] Implement similar to /login, difference is this is for
-          agent clients.
-  - [ ] GET /assets/agent.py
-    - [ ] The route must allow us to download the latest agent script relative to
-          project's version
+  - [x] POST /login-agent - Implement similar to /login, difference is this is for agent clients.
+  - [x] GET /assets/agent.py -- Download agent.py agent script
 - [ ] Simple AGENT client
   - [ ] Agent should be able to connect to master
   - [ ] Agent should be able to receive files from master
