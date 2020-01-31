@@ -67,23 +67,6 @@ each other.
   - [x] Agent should be able to connect to master
   - [ ] Agent should be able to receive files from master
   - [ ] Agent should be able to execute commands, issued by master
-- [ ] Front Server (nginx, hosts html files for UI)
-  - [ ] Serves static html, javascript and images (just initial stuff)
-  - [ ] Develop login page
-    - [ ] Perform request to login server /login
-    - [ ] Client must store jws upon successful login to local-storage
-  - [ ] Develop home page
-    - [ ] Client must send auth token from local storage (Authorization: Bearer JWS-STRING)
-    - [ ] Side bar consist of
-      - [ ] Upper side panel (left)
-        - [ ] New item
-        - [ ] People
-        - [ ] Manage Jonkkins
-        - [ ] New View
-      - [ ] Lower side panel (left)
-        - [ ] Build Executor Status
-          - [ ] List of connected agents / agents
-          - [ ] Number of executors (per agent)
 - [ ] Simple MASTER server.
   - [ ] Must implement a middleware that always check for login
         by checking if jws is forged, and interpret the sent claim
@@ -102,6 +85,23 @@ each other.
             treat the script as bash. Without header, we'll treat the
             script as a regular bash file, just like how jenkins do it.
     - [ ] Trigger another local job, parametized
+- [ ] Front Server (nginx, hosts html files for UI)
+  - [ ] Serves static html, javascript and images (just initial stuff)
+  - [ ] Develop login page
+    - [ ] Perform request to login server /login
+    - [ ] Client must store jws upon successful login to local-storage
+  - [ ] Develop home page
+    - [ ] Client must send auth token from local storage (Authorization: Bearer JWS-STRING)
+    - [ ] Side bar consist of
+      - [ ] Upper side panel (left)
+        - [ ] New item
+        - [ ] People
+        - [ ] Manage Jonkkins
+        - [ ] New View
+      - [ ] Lower side panel (left)
+        - [ ] Build Executor Status
+          - [ ] List of connected agents / agents
+          - [ ] Number of executors (per agent)
 
 
 ### Slack channel
